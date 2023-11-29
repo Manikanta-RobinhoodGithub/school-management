@@ -1,0 +1,68 @@
+{% include 'head.html'%}
+<br>
+<script>
+function validate(){
+        let paid_amount = document.getElementById("paid_amount").value
+        if(paid_amount==""){
+            alert("Enter Amount")
+            return false;
+        }
+          let cardNumber = document.getElementById("cardNumber").value
+        if(cardNumber.length!=16){
+            alert("cardNumber Should be 16")
+            return false
+        }
+          let nameOnCard = document.getElementById("nameOnCard").value
+        if(nameOnCard==""){
+            alert("Name OnCard")
+            return false;
+        }
+         let cvv = document.getElementById("cvv").value
+        if(cvv==""){
+            alert("Cvv")
+            return false;
+        }
+           let expireDate = document.getElementById("expireDate").value
+        if(expireDate==""){
+            alert("ExpireDate")
+            return false;
+        }
+
+        return true
+    }
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 mt-2">
+            <div class="card p-3 ">
+                <form action="payAmount1" method="post" onsubmit="return validate()">
+                    <input type="hidden" name="enrollment_id" value="{{enrollment_id}}">
+                    <input type="hidden" name="section_fee" value="{{section_fee}}">
+                    <div class="row"><div class="col-md-6">Payable : </div><div class="col-md-6 h6">$ {{int(section_fee)-int(fee_paid)}}</div></div>
+                        <div class="mt-2">
+                            <label for="paid_amount">Amount</label>
+                            <input type="number" name="paid_amount"  min="1" max="{{int(section_fee)-int(fee_paid)}}" id="paid_amount" placeholder="Enter Amount" class="form-control">
+                        </div>
+                    <div class="mt-2">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="number" name="cardNumber" id="cardNumber" placeholder="Enter Card Number" class="form-control">
+                        </div>
+                        <div class="mt-2">
+                            <label for="nameOnCard">Name on Card</label>
+                            <input type="text" name="nameOnCard" id="nameOnCard" placeholder="Enter Name On Card" class="form-control">
+                        </div>
+                        <div class="mt-2">
+                            <label for="nameOnCard">CVV</label>
+                            <input type="text" name="cvv" id="cvv" placeholder="Enter CVV" class="form-control">
+                        </div>
+                        <div class="mt-2">
+                            <label for="expireDate">Expire Date</label>
+                            <input type="text" name="expireDate" id="expireDate" placeholder="MM/YY" class="form-control">
+                        </div>
+                    <input type="submit" value="Pay" class="btn btn-primary w-100 mt-1">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

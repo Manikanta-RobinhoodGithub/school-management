@@ -1,0 +1,132 @@
+{% include 'head.html'%}
+<br>
+<div class="text-center h6">View Enrollments</div>
+<div class="container mt-1">
+    <div class="row">
+        {% for enrollment in enrollments%}
+        {% set student = getStudent_by_enrollment(enrollment[6])%}
+         {% set section = get_section_by_enrollment(enrollment[5])%}
+        {% set instructor = get_instructor_by_section(section[8])%}
+        {% set subject = get_subject_by_SectionId(section[7])%}
+         {% set department = get_department_by_subject(subject[3])%}
+        <div class="col-md-6">
+            <div class="card p-3 mt-3">
+                <div class="row">
+                    <div class="col-md-4">
+                       <div class="text-muted" style="font-size:13px">Crn :</div>
+                          <div class="h6">{{section[3]}}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted" style="font-size:13px">Room Number : </div>
+                          <div class="h6">{{section[1]}}</div>
+                    </div>
+                    <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">WeekDay : </div>
+                         <div class="h6">{{section[2]}}</div>
+                    </div>
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Class Time : </div>
+                         <div class="h6">{{section[4]}}</div>
+                    </div>
+
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Subject Name </div>
+                         <div class="h6">{{subject[1]}}</div>
+                    </div>
+                      <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Department Name </div>
+                         <div class="h6">{{department[1]}}</div>
+                    </div>
+                    <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Instructor Name </div>
+                         <div class="h6">{{instructor[1]}}</div>
+                     </div>
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Student Name </div>
+                         <div class="h6">{{student[1]}}({{student[3]}})</div>
+                     </div>
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Section Fee : </div>
+                         <div class="h6">$ {{section[6]}}</div>
+                    </div>
+                    <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Amount Paid </div>
+                         <div class="h6">$ {{enrollment[1]}}</div>
+                     </div>
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Due Amount</div>
+                         <div class="h6">$ {{int(section[6])-int(enrollment[1])}}</div>
+                     </div>
+                    <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Grade</div>
+                         <div class="h6">{{enrollment[3]}}</div>
+                     </div>
+
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Attendance</div>
+                         <div class="h6">{{enrollment[4]}} %</div>
+                     </div>
+
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Status</div>
+                         <div class="h6">{{enrollment[2]}}</div>
+                     </div>
+
+                </div>
+                  {% if session['role'] =='instructor' or session['role'] =='admin'%}
+                <div class="card-footer">
+                    <div class="row">
+                         <div class="col-md-6">
+                            <form action="viewTransactions" method="post">
+                                <input type="hidden" name="enrollment_id" value="{{enrollment[0]}}">
+                                <input type="submit" value="View Transactions" class="btn btn-primary mt-3 w-100" style="font-size:12px">
+                            </form>
+                        </div>
+                         {% if session['role'] =='instructor'%}
+                         <div class="col-md-6">
+                            <form action="giveGrade" method="post">
+                                <input type="hidden" name="enrollment_id" value="{{enrollment[0]}}">
+                                <input type="submit" value="Give Grade" class="btn btn-primary mt-3 w-100" style="font-size:12px">
+                            </form>
+                        </div>
+                {% endif%}
+                    </div>
+                </div>
+                {% endif%}
+
+                {% if session['role'] =='student'%}
+                {% if enrollment[2] =='enrolled'%}
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form action="drop" method="post">
+                                <input type="hidden" name="enrollment_id" value="{{enrollment[0]}}">
+                                <input type="submit" value="Drop" class="btn btn-danger w-100" style="font-size:12px">
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            {% if section[6] != enrollment[1]%}
+                        <form action="payAmount" method="post">
+                                <input type="hidden" name="enrollment_id" value="{{enrollment[0]}}">
+                            <input type="hidden" name="fee_paid" value="{{enrollment[1]}}">
+                            <input type="hidden" name="section_fee" value="{{section[6]}}">
+                                <input type="submit" value="Pay" class="btn btn-primary w-100" style="font-size:12px">
+                            </form>
+                            {% endif%}
+                        </div>
+                        <div class="col-md-6">
+                            <form action="viewTransactions" method="post">
+                                <input type="hidden" name="enrollment_id" value="{{enrollment[0]}}">
+                                <input type="submit" value="View Transactions" class="btn btn-primary mt-3 w-100" style="font-size:12px">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endif%}
+                {% endif%}
+            </div>
+        </div>
+        {% endfor%}
+    </div>
+</div>

@@ -1,0 +1,54 @@
+{% include 'head.html'%}
+<br>
+<div class="container mt-1">
+    <div class="row">
+        {% for student in students%}
+        {% set department = get_department_by_studentId(student[7])%}
+        <div class="col-md-4">
+            <div class="card p-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-secondary" style="font-size:12px">Name</div>
+                         <div class="h4" style="font-size:13px">{{student[1]}}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-secondary" style="font-size:12px">Email</div>
+                         <div class="h4" style="font-size:12px">{{student[2]}}</div>
+                    </div>
+                    <div class="col-md-6">
+                         <div class="text-secondary" style="font-size:12px">Phone</div>
+                         <div class="h4" style="font-size:12px">{{student[3]}}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-secondary" style="font-size:12px">Roll Number</div>
+                         <div class="h4" style="font-size:12px">{{student[5]}}</div>
+                    </div>
+                         <div class="text-secondary text-center mt-1" style="font-size:12px">Department</div>
+                         <div class="h3 text-center" style="font-size:15px">{{department[1]}}</div>
+                    <div class="h3 text-center mt-3" style="font-size:15px">{{student[6]}}</div>
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="">
+                    <form action="student_status" method="post">
+                         <div class="row">
+                             {% if student[6] == 'unauthorized'%}
+                        <div class="col-md-6">
+                            <input type="hidden" name="student_id" value="{{student[0]}}">
+                            <input type="submit" value="Approve" class="btn btn-success w-100">
+                        </div>
+                             {% else%}
+                        <div class="col-md-6">
+                             <input type="hidden" name="student_id" value="{{student[0]}}">
+                            <input type="submit" value="Reject" class="btn btn-danger w-100">
+                        </div>
+                             {% endif%}
+                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor%}
+    </div>
+</div>

@@ -1,0 +1,56 @@
+{% include 'head.html'%}
+<br>
+<div class="container mt-5">
+    <div class="card p-3 mt-3">
+        <form action="addSection1" method="post" onsubmit="return validate()">
+            <div class="h3 text-center">Add Section</div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mt-1">
+                        <label for="crn_number" style="font-size:16px">Crn Number</label>
+                        <input type="text" class="form-control mt-1" id="crn_number" placeholder="Enter Crn" name="crn_number" required>
+                    </div>
+                    <div class="form-group mt-1">
+                        <label for="room_number" style="font-size:16px">RoomNumber</label>
+                        <input type="text" class="form-control mt-1" id="room_number" placeholder="Enter RoomNumber" name="room_number" required>
+                    </div>
+                     <div class="form-group mt-2">
+                        <label for="number_of_students" style="font-size:16px">Number Of Students</label>
+                        <input type="text" class="form-control mt-1" id="number_of_students" placeholder="Enter Number Of Students" name="number_of_students" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="subject_id" style="font-size:16px">Choose Subject</label>
+                        <select id="subject_id" name="subject_id" class="form-control" required>
+                            {% for subject in subjects%}
+                            <option value="{{subject[0]}}">{{subject[1]}}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                      <div class="form-group mt-1">
+                        <label for="weekday" style="font-size:16px">Week Day</label>
+                          <select id="weekday" name="weekday" class="form-control" required>
+                              <option value="Monday">Monday</option>
+                              <option value="Tuesday">Tuesday</option>
+                              <option value="Wednesday">Wednesday</option>
+                              <option value="Thursday">Thursday</option>
+                              <option value="Friday">Friday</option>
+                              <option value="Saturday">Saturday</option>
+                          </select>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <label for="class_time" style="font-size:16px">Choose ClassTime</label>
+                        <input type="time" name="class_time" id="class_time" class="form-control mt-1" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="section_fee" style="font-size:16px">Section Fee</label>
+                        <input type="text" name="section_fee" id="section_fee" class="form-control mt-1"  placeholder="Section Fee" required>
+                    </div>
+                     <input type="submit" value="Add Section" class="btn btn-success w-100 mt-4">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

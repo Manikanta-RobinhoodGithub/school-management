@@ -1,0 +1,29 @@
+{% include 'head.html'%}
+<br><br>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="card p-4">
+            <form action="/giveGrade1" method="post">
+                <input type="hidden" name="enrollment_id" value="{{enrollment_id}}">
+                <div class="text-center h6"></div>
+                <div class="form-group">
+                    <label>Grade</label>
+                    <select name="grade" class="form-control mt-2" id="grade" required>
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="C">C</option>
+                          <option value="D">D</option>
+                    </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="attendance">Attendance</label>
+                    <input type="number" name="attendance" min="1" max="100" placeholder="Attendance" class="form-control mt-1" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Give" class="btn btn-primary mt-2 w-100">
+                </div>
+                </form>
+            </div>
+    </div>
+</div>

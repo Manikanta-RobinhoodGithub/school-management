@@ -1,0 +1,50 @@
+{% include 'head.html'%}
+<script>
+function validate(){
+        let subject_name = document.getElementById("subject_name").value
+        if(subject_name==""){
+            alert("Enter Subject Name")
+            return false;
+        }
+          let subject_code = document.getElementById("subject_code").value
+        if(subject_code==""){
+            alert("Enter Subject Code")
+            return false;
+        }
+
+            let department_id = document.getElementById("department_id").value
+        if(department_id==""){
+            alert("Choose Department")
+            return false;
+        }
+        return true
+    }
+</script>
+<br>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="card p-4 mt-2">
+            <form action="addSubject1" method="post" onsubmit="return validate()">
+                <div class="form-group mt-1">
+                    <label for="subject_name">SubjectName</label>
+                    <input type="text" name="subject_name" placeholder="Enter SubjectName" id="subject_name" class="form-control mt-1">
+                </div>
+                <div class="form-group mt-1">
+                    <label for="subject_code">Subject Code</label>
+                    <input type="text" name="subject_code" placeholder="Enter SubjectCode" id="subject_code" class="form-control mt-1">
+                </div>
+                <div class="form-group mt-1">
+                    <label for="department_id">Choose Department</label>
+                     <select id="department_id" name="department_id" class="form-control" required>
+                         {%for department in departments%}
+                         <option value="{{department[0]}}">{{department[1]}}</option>
+                         {% endfor %}
+                     </select>
+                </div>
+
+                <input type="submit" value="Add Subject" class="btn btn-primary w-100 mt-2">
+            </form>
+        </div>
+    </div>
+</div>

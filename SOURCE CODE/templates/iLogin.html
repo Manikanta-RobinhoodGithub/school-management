@@ -1,0 +1,47 @@
+{% include 'head.html'%}
+<style>
+body {
+  background-image: url("https://img.freepik.com/free-photo/education-day-arrangement-table-with-copy-space_23-2148721266.jpg");
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  height:200px;
+}
+</style>
+<script>
+function validate(){
+        let email = document.getElementById("email").value
+        if(email==""){
+            alert("Enter Email")
+            return false;
+        }
+        let Password = document.getElementById("Password").value
+        if(Password==""){
+            alert("Enter Password")
+            return false;
+        }
+
+        return true
+    }
+</script>
+<br>
+<div class="row mt-2">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 ms-2">
+        <div class="card p-4 mt-5">
+            <form action="iLogin1" method="post" onsubmit="return validate()">
+                <div class="h4 text-center">Instructor Login</div>
+                <div class="form-group">
+                   <i class="fa fa-envelope" style="font-size:15px"></i>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control mt-1 p-3" id="email" placeholder="Enter Email" name="email">
+                </div>
+                <div class="form-group mt-2">
+                    <i class="fa fa-key"></i>
+                    <label for="Password">Password</label>
+                    <input type="Password" class="form-control mt-1 p-3" id="Password" placeholder="Enter Password" name="password">
+                </div>
+                <input type="submit" value="Login" class="btn text-white w-100 mt-3" style="background-color:#00BFFF">
+            </form>
+        </div>
+    </div>
+</div>

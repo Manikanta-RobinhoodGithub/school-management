@@ -1,0 +1,20 @@
+{% include 'head.html'%}
+<br>
+<div class="container mt-3">
+<h6 class="text-center mt-1">Salaries Details</h6>
+    <table style="width:100%" class="table table-bordered mt-1">
+        <tr>
+            <th style="font-size:12px">Salary</th>
+            <th style="font-size:12px">Month</th>
+             <th style="font-size:12px">Year</th>
+        </tr>
+        {% for salary in salaries%}
+        <tr>
+            <td><b>$ {{salary[1]}}</b></td>
+            <td><b>{{salary[3]}}</b></td>
+             <td><b>{{salary[2]}}</b></td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</div>

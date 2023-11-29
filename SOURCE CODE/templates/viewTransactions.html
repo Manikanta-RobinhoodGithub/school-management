@@ -1,0 +1,21 @@
+{% include 'head.html'%}
+<br>
+<div class="container mt-3">
+<h6 class="text-center mt-1">Transactions</h6>
+    <table style="width:100%" class="table table-bordered mt-1">
+        <tr>
+            <th style="font-size:12px">Paid Amount</th>
+            <th style="font-size:12px">Date</th>
+
+        </tr>
+        {% for transaction in transactions%}
+
+
+        <tr>
+            <td><b>$ {{transaction[1]}}</b></td>
+            <td><b>{{transaction[2]}}</b></td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</div>

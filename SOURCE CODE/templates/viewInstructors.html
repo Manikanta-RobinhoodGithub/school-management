@@ -1,0 +1,33 @@
+{% include 'head.html'%}
+<br>
+<div class="container mt-3">
+<h6 class="text-center mt-1">Instructors List</h6>
+    <table style="width:100%" class="table table-bordered mt-1">
+        <tr>
+            <th style="font-size:12px">Name</th>
+            <th style="font-size:12px">Email</th>
+             <th style="font-size:12px">Phone</th>
+             <th style="font-size:12px">Experience</th>
+             <th style="font-size:12px">Department</th>
+            <th style="font-size:12px">Add Salary</th>
+            <th style="font-size:12px">Salary Details</th>
+        </tr>
+        {% for instructor in instructors%}
+        {% set department = get_Department_by_tId(instructor[6])%}
+
+        <tr>
+            <td><b>{{instructor[1]}}</b></td>
+            <td><b>{{instructor[2]}}</b></td>
+             <td><b>{{instructor[3]}}</b></td>
+             <td><b>{{instructor[5]}}</b></td>
+              <td><b>{{department[1]}}</b></td>
+             <td>
+                 <a href="addSalary?instructor_id={{instructor[0]}}" style="font-size:12px" class="btn btn-success">Add Salary</a>
+             </td>
+             <td>
+                 <a href="viewSalaries?instructor_id={{instructor[0]}}" style="font-size:12px" class="btn btn-primary">Salary Details</a>
+             </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>

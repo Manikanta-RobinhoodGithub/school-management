@@ -1,0 +1,101 @@
+{% include 'head.html'%}
+<br>
+    <div class="text-center h6">View Sections</div>
+{% if session['role'] =='student'%}
+<div class="container">
+    <div class="row">
+        <form action="viewSection">
+            <div class="row">
+                <div class="col-md-3"></div>
+                 <div class="col-md-5">
+                        <input type="search" name="search_result" id="search_result" placeholder="Search" class="form-control" onchange="this.form.submit()"   {% if search_result!=None: %} value="{{search_result}}" {% endif %}>
+                 </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif%}
+<div class="container mt-1">
+    <div class="row">
+        {% for section in sections%}
+        {% if session['role'] =='student'%}
+        {% set enroll  = isEnrolled(section[0])%}
+        {% endif%}
+        {% set instructor = get_instructor_by_section(section[8])%}
+        {% set subject = get_subject_by_SectionId(section[7])%}
+         {% set department = get_department_by_subject(subject[3])%}
+        <div class="col-md-6">
+            <div class="card p-3 mt-3">
+                <div class="row">
+                    <div class="col-md-4">
+                       <div class="text-muted" style="font-size:13px">Crn :</div>
+                          <div class="h6">{{section[3]}}</div>
+                    </div>
+                    <div class="col-md-4">
+                         <div class="text-muted" style="font-size:13px">Number Of Students : </div>
+                          <div class="h6">{{section[5]}}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted" style="font-size:13px">Room Number : </div>
+                          <div class="h6">{{section[1]}}</div>
+                    </div>
+                    <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">WeekDay : </div>
+                         <div class="h6">{{section[2]}}</div>
+                    </div>
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Class Time : </div>
+                         <div class="h6">{{section[4]}}</div>
+                    </div>
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Section Fee : </div>
+                         <div class="h6">$ {{section[6]}}</div>
+                    </div>
+                     <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Subject Name </div>
+                         <div class="h6">{{subject[1]}}</div>
+                    </div>
+                      <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Department Name </div>
+                         <div class="h6">{{department[1]}}</div>
+                    </div>
+                        <div class="col-md-4 mt-1">
+                         <div class="text-muted" style="font-size:13px">Instructor Name </div>
+                         <div class="h6">{{instructor[1]}}</div>
+                    </div>
+
+                </div>
+                {% if session['role'] =='student'%}
+                {% if enroll%}
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form action="enroll" method="post">
+                                <input type="hidden" name="section_id" value="{{section[0]}}">
+                                <input type="submit" value="Enroll" class="btn btn-success w-100" style="font-size:12px">
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+                </div>
+                {% endif%}
+                {% endif%}
+                {% if session['role'] =='instructor' or session['role'] =='admin'%}
+                 <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form action="viewEnrollments">
+                                <input type="hidden" name="section_id" value="{{section[0]}}">
+                                <input type="submit" value="View Enrollments" class="btn btn-primary w-100" style="font-size:12px">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endif%}
+            </div>
+        </div>
+        {% endfor%}
+    </div>
+</div>
